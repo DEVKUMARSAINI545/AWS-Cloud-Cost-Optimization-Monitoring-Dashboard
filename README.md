@@ -63,7 +63,7 @@ Enable AWS Cost Explorer from the Billing Dashboard.
 ---
 ![S3 Bucket ](images/s3bucket.PNG)
 
-**2.Create an SNS topic for cost alerts.**
+**2. Create an SNS topic for cost alerts. **
 ![SNS topic ](images/snstopic.PNG)
 
 **2.Create an SNS Subscription for cost alerts.**
@@ -72,16 +72,15 @@ Enable AWS Cost Explorer from the Billing Dashboard.
 **3.Create an SNS Subscription Confirm on Email for cost alerts.**
 ![SNS Subscription ](images/subscribeconfirm.PNG)
 
-**3.Configure IAM roles for Lambda with access to Cost Explorer, S3, and SNS.**
-![IAM Roles ](images/s3bucket.png)
+**3. Create an Lambda function for fetch cost Explore data and store in S3 ad send success message on email by SNS**
+![Lambda function ](images/lambdafunction.PNG)
 
-**4.Go to AWS Lambda and create a new Lambda function.**
-![IAM Roles ](images/s3bucket.png)
+**4. Add EventBridge (CloudWatch Events): triggerFunction**
+![Lambda function ](images/lambdafunction.PNG)
 
-**5.Attach the IAM role with necessary permissions.**
-![IAM Roles ](images/s3bucket.png)
+![Lambda function ](images/triggetevent.PNG)
 
-**6.Write a Python script using Boto3 to fetch GetCostAndUsage from AWS Cost Explorer.**
+**4.Write a Python script using Boto3 to fetch GetCostAndUsage from AWS Cost Explorer.**
 ```bash
 import boto3
 import csv
