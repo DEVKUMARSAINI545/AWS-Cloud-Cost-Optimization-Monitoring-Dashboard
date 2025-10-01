@@ -35,7 +35,7 @@ def lambda_handler(event, context):
     writer.writeheader()
     writer.writerows(results)
 
-    bucket_name = 'mynewbucket-1001'
+    bucket_name = 'mys3bucket-125600'
     file_name = f"cost_report_{datetime.today().strftime('%Y-%m-%d')}.csv"
      
     s3.put_object(
@@ -43,11 +43,11 @@ def lambda_handler(event, context):
         Key=file_name,
         Body=csv_buffer.getvalue()
     )
-#     topic_arn = "arn:aws:sns:ap-south-1:952346071341:SNS_for_cost"
-#     sns.publish(
-#         TopicArn=topic_arn,
-#         Subject="AWS Cost Report Generated",
-#         Message=f"The AWS cost report for the last 7 days has been successfully generated and saved to S3."
-#    )
+    topic_arn = "arn:aws:sns:ap-south-1:<ACCOUNT NO>:SNS_for_cost"
+    sns.publish(
+        TopicArn=topic_arn,
+        Subject="AWS Cost Report Generated",
+        Message=f"The AWS cost report for the last 7 days has been successfully generated and saved to S3."
+   )
     print(f"Saved results to s3://{bucket_name}/{file_name} and notified SNS")
     return results
