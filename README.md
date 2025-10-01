@@ -97,7 +97,7 @@ from datetime import datetime, timedelta
 import json
 def lambda_handler(event, context):
     # Connect to Cost Explorer in us-east-1
-    ce = boto3.client('ce', region_name='us-east-1')
+    ce = boto3.client('ce', region_name='us-east-1') # cost explore only access in region us-east-1  remember this.......
     s3 = boto3.client('s3')
     sns = boto3.client('sns')  # SNS client
     # Last 7 days
