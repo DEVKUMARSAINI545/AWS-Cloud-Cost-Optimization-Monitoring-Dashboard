@@ -191,19 +191,19 @@ def lambda_handler(event, context):
 
 ---
 
-**16.Now go to Quicksight and create a account **
+**17.Now go to Quicksight and create a account**
 ---
 ![Lambda function Role ](images/quicksight.PNG)
 
 ---
 
-**17.Now go and give permission to S3 bucket**
+**18.Now go and give permission to S3 bucket**
 ---
 ![Lambda function Role ](images/permission.PNG)
 
 ---
 
-**17.Now go new analyst and new dashboard select amazon s3**
+**19.Now go new analyst and new dashboard select amazon s3**
 ---
 ![Lambda function Role ](images/manifestfile.PNG)
 
@@ -231,12 +231,12 @@ Save this file on local and upload it on quick sight then click connect
 ![Lambda function Role ](images/finishcreatedataset.PNG)
 
 ---
-**18.Now design your dashboard accoding to you**
+**20.Now design your dashboard accoding to you**
 ---
 ![Lambda function Role ](images/designvisulization.PNG)
 
 ---
-**18.Final dashboard look like this**
+**21.Final dashboard look like this**
 ---
 ![Lambda function Role ](images/finaldashboard.PNG)
 
