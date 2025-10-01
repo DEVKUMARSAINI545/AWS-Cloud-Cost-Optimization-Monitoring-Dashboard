@@ -60,7 +60,7 @@ The **AWS Cloud Cost Optimization & Monitoring Dashboard** is a project that hel
 Enable AWS Cost Explorer from the Billing Dashboard.
 ```
 **1.Create an S3 bucket to store cost reports.**
-![S3 Bucket ](images/s3bucket.png)
+![S3 Bucket ](images/Capture.png)
 
 **2.Create an SNS topic for cost alerts.**
 ![SNS topic ](images/s3bucket.png)
