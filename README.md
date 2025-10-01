@@ -236,7 +236,7 @@ Save this file on local and upload it on quick sight then click connect
 ![Lambda function Role ](images/designvisulization.PNG)
 
 ---
-**18.Final dashboard look like this **
+**18.Final dashboard look like this**
 ---
 ![Lambda function Role ](images/finaldashboard.PNG)
 
