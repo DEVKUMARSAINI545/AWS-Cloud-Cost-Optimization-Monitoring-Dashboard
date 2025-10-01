@@ -151,6 +151,25 @@ def lambda_handler(event, context):
 **12.Now open role and give all this permission to your lambda function**
 ![Lambda function Role ](images/rolepermission.PNG)
 
+**Add this permission by inline policy to get cost and usage access**
+![Lambda function Role ](images/getcostaccess.PNG)
+
+
+**13.After add all this permissions got to the lambda function and deploy it and test it**
+---
+**And make sure your timeout should be 30 sec at least. got and check in configure generate configuration**
+---
+![Lambda function Role ](images/testcode.PNG)
+
+
+**14.Now check your s3 your file has been saved**
+![Lambda function Role ](images/filesaveins3.PNG)
+
+**15.check your SNS to . you'll get the notification**
+![Lambda function Role ](images/reportsaveemail.PNG)
+
+
+
 
 
 
