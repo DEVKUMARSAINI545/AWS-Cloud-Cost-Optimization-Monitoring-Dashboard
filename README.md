@@ -63,24 +63,24 @@ Enable AWS Cost Explorer from the Billing Dashboard.
 ---
 ![S3 Bucket ](images/s3bucket.PNG)
 
-**2. Create an SNS topic for cost alerts. **
+**2. Create an SNS topic for cost alerts.**
 ![SNS topic ](images/snstopic.PNG)
 
-**2.Create an SNS Subscription for cost alerts.**
+**3.Create an SNS Subscription for cost alerts.**
 ![SNS Subscription ](images/snssub.PNG)
 
-**3.Create an SNS Subscription Confirm on Email for cost alerts.**
+**4.Create an SNS Subscription Confirm on Email for cost alerts.**
 ![SNS Subscription ](images/subscribeconfirm.PNG)
 
-**3. Create an Lambda function for fetch cost Explore data and store in S3 ad send success message on email by SNS**
+**5. Create an Lambda function for fetch cost Explore data and store in S3 ad send success message on email by SNS**
 ![Lambda function ](images/lambdafunction.PNG)
 
-**4. Add EventBridge (CloudWatch Events): triggerFunction**
+**6. Add EventBridge (CloudWatch Events): triggerFunction**
 ![Lambda function ](images/lambdafunction.PNG)
 
 ![Lambda function ](images/triggetevent.PNG)
 
-**4.Write a Python script using Boto3 to fetch GetCostAndUsage from AWS Cost Explorer.**
+**7.Write a Python script on Lambda code Editor using Boto3 to fetch GetCostAndUsage from AWS Cost Explorer.**
 ```bash
 import boto3
 import csv
@@ -120,7 +120,7 @@ def lambda_handler(event, context):
     writer.writerows(results)    
 ```
 
-**7.In the Lambda function, add code to save the cost data as CSV in S3:**
+**8.In the Lambda function, add code to save the cost data as CSV in S3**
 ```bash
   bucket_name = 'mys3bucket-125600'
     file_name = f"cost_report_{datetime.today().strftime('%Y-%m-%d')}.csv"
@@ -131,7 +131,7 @@ def lambda_handler(event, context):
         Body=csv_buffer.getvalue()
     )
 ```
-**8.In Lambda, add SNS notification when cost exceeds a threshold:**
+**9.In Lambda, add SNS notification when cost exceeds a threshold:**
 ```bash
   topic_arn = "arn:aws:sns:ap-south-1:<YOUR ACCOUNT ID>:SNS_for_cost"
     sns.publish(
@@ -142,3 +142,15 @@ def lambda_handler(event, context):
     print(f"Saved results to s3://{bucket_name}/{file_name} and notified SNS")
     return results
 ```
+**10.After Written Lambda function go to Configure and check your lambda function Role name**
+![Lambda function Role ](images/lambdafunctionrole.PNG)
+
+**11.Copy the Role name and go to IAM Roles and find your role**
+![Lambda function Role ](images/findrole.PNG)
+
+**12.Now open role and give all this permission to your lambda function**
+![Lambda function Role ](images/rolepermission.PNG)
+
+
+
+
