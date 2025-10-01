@@ -182,6 +182,70 @@ def lambda_handler(event, context):
 ---
 ![Lambda function Role ](images/reportsaveemail.PNG)
 
+**16.check your Lambda Cloudwatch and logs**
+---
+![Lambda function Role ](images/lambdacloudwatch.PNG)
+
+---
+![Lambda function Role ](images/lambdalogs.PNG)
+
+---
+
+**16.Now go to Quicksight and create a account **
+---
+![Lambda function Role ](images/quicksight.PNG)
+
+---
+
+**17.Now go and give permission to S3 bucket**
+---
+![Lambda function Role ](images/permission.PNG)
+
+---
+
+**17.Now go new analyst and new dashboard select amazon s3**
+---
+![Lambda function Role ](images/manifestfile.PNG)
+
+**upload the manifest file beacuse you want to give s3 url address to quicksight**
+```bash
+Save this file on local and upload it on quick sight then click connect
+{
+  "fileLocations": [
+    {
+      "URIs": [
+        "https://mys3bucket-125600.s3.ap-south-1.amazonaws.com/cost_report_2025-10-01.csv" #give your s3 url 
+      ]
+    }
+  ],
+  "globalUploadSettings": {
+    "format": "CSV",
+    "delimiter": ",",
+    "textqualifier": "'",
+    "containsHeader": "true"
+  }
+}
+```
+---
+
+![Lambda function Role ](images/finishcreatedataset.PNG)
+
+---
+**18.Now design your dashboard accoding to you**
+---
+![Lambda function Role ](images/designvisulization.PNG)
+
+---
+**18.Final dashboard look like this **
+---
+![Lambda function Role ](images/finaldashboard.PNG)
+
+
+
+
+
+
+
 
 
 
