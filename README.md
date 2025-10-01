@@ -61,10 +61,16 @@ Enable AWS Cost Explorer from the Billing Dashboard.
 ```
 **1.Create an S3 bucket to store cost reports.**
 ![S3 Bucket ](images/Capture.PNG)
+![S3 Bucket ](images/s3bucket.PNG)
 
 **2.Create an SNS topic for cost alerts.**
 ![SNS topic ](images/snstopic.PNG)
-![SNS subscribe ](images/subscribeconfirm.PNG)
+
+**2.Create an SNS Subscription for cost alerts.**
+![SNS Subscription ](images/snssub.PNG.PNG)
+
+**3.Create an SNS Subscription Confirm on Email for cost alerts.**
+![SNS Subscription ](images/subscribeconfirm.PNG)
 
 **3.Configure IAM roles for Lambda with access to Cost Explorer, S3, and SNS.**
 ![IAM Roles ](images/s3bucket.png)
