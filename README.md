@@ -261,6 +261,11 @@ Save this file on local and upload it on quick sight then click connect
 ---
 ![Cost Alert ](images/costalert.PNG)
 
+---
+**23.Add versioning on s3**
+---
+![Cost Alert ](images/s3versioning.PNG)
+
 
 
 
