@@ -95,15 +95,17 @@ import csv
 from io import StringIO
 from datetime import datetime, timedelta
 import json
+
 def lambda_handler(event, context):
-    # Connect to Cost Explorer in us-east-1
-    ce = boto3.client('ce', region_name='us-east-1') # cost explore only access in region us-east-1  remember this.......
+    # AWS clients
+    ce = boto3.client('ce', region_name='us-east-1')  # Cost Explorer only works in us-east-1
     s3 = boto3.client('s3')
-    sns = boto3.client('sns')  # SNS client
+    sns = boto3.client('sns')
+
     # Last 7 days
     start = (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
     end = datetime.today().strftime('%Y-%m-%d')
-    
+
     # Fetch daily cost per service
     response = ce.get_cost_and_usage(
         TimePeriod={'Start': start, 'End': end},
@@ -111,17 +113,21 @@ def lambda_handler(event, context):
         Metrics=['UnblendedCost'],
         GroupBy=[{'Type': 'DIMENSION', 'Key': 'SERVICE'}]
     )
-    
-    # Prepare results
-    results = [
-        {
-            'Date': day['TimePeriod']['Start'],
-            'Service': group['Keys'][0],
-            'Amount': group['Metrics']['UnblendedCost']['Amount']
-        }
-        for day in response['ResultsByTime']
-        for group in day['Groups']
-    ]
+
+    # Prepare results & detect high-cost services
+    results = []
+    high_cost_services = []
+
+    for day in response['ResultsByTime']:
+        date = day['TimePeriod']['Start']
+        for group in day['Groups']:
+            service = group['Keys'][0]
+            amount = float(group['Metrics']['UnblendedCost']['Amount'])
+            results.append({'Date': date, 'Service': service, 'Amount': amount})
+            if amount > 2:  # Threshold for high-cost
+                high_cost_services.append({'Date': date, 'Service': service, 'Amount': amount})
+
+    # Save CSV to S3
     csv_buffer = StringIO()
     writer = csv.DictWriter(csv_buffer, fieldnames=['Date', 'Service', 'Amount'])
     writer.writeheader()
@@ -132,21 +138,31 @@ def lambda_handler(event, context):
 ```bash
   bucket_name = 'mys3bucket-125600'
     file_name = f"cost_report_{datetime.today().strftime('%Y-%m-%d')}.csv"
-     
-    s3.put_object(
-        Bucket=bucket_name,
-        Key=file_name,
-        Body=csv_buffer.getvalue()
-    )
+    s3.put_object(Bucket=bucket_name, Key=file_name, Body=csv_buffer.getvalue())
 ```
 **9.In Lambda, add SNS notification when cost exceeds a threshold:**
 ```bash
-  topic_arn = "arn:aws:sns:ap-south-1:<YOUR ACCOUNT ID>:SNS_for_cost"
+ # SNS notification
+    topic_arn = "arn:aws:sns:ap-south-1:952346071341:cost_optimization"
+    
+    # General report notification
     sns.publish(
         TopicArn=topic_arn,
         Subject="AWS Cost Report Generated",
-        Message=f"The AWS cost report for the last 7 days has been successfully generated and saved to S3."
-   )
+        Message=f"The AWS cost report for the last 7 days has been successfully generated and saved to S3: s3://{bucket_name}/{file_name}"
+    )
+
+    # High-cost alert notification
+    if high_cost_services:
+        message = "⚠️ High Cost Alert for AWS Services (>$50):\n"
+        for svc in high_cost_services:
+            message += f"- {svc['Service']} on {svc['Date']}: ${svc['Amount']:.2f}\n"
+        sns.publish(
+            TopicArn=topic_arn,
+            Subject="AWS High-Cost Service Alert",
+            Message=message
+        )
+
     print(f"Saved results to s3://{bucket_name}/{file_name} and notified SNS")
     return results
 ```
@@ -239,6 +255,12 @@ Save this file on local and upload it on quick sight then click connect
 **21.Final dashboard look like this**
 ---
 ![Lambda function Role ](images/finaldashboard.PNG)
+
+
+**22.And High alert that which resource consume high cost**
+---
+![Lambda function Role ](images/finaldashboard.PNG)
+
 
 
 
