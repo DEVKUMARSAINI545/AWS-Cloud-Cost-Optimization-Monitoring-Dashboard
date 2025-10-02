@@ -269,7 +269,7 @@ Save this file on local and upload it on quick sight then click connect
 ---
 **24.Add Lifecycle rules to delete old versioning after 30 days**
 ---
-![Cost Alert ](images/s3lifecycle.PNG)
+![S3 Life Cycle ](images/lifecycles3.PNG)
 
 
 
