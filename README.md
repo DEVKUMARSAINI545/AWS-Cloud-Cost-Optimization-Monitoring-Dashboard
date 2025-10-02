@@ -259,7 +259,7 @@ Save this file on local and upload it on quick sight then click connect
 
 **22.And High alert that which resource consume high cost**
 ---
-![Lambda function Role ](images/finaldashboard.PNG)
+![Cost Alert ](images/costalert.PNG)
 
 
 
